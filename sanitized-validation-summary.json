@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0",
+  "record_type": "sanitized derived evidence summary; not raw diagnostic logs",
+  "environment": "personal service-bearing homelab",
+  "change_dates_local": [
+    "2026-11-08",
+    "2026-11-09"
+  ],
+  "report_timezone": "CST UTC-06:00",
+  "scope": [
+    "NAS/Pi-hole server",
+    "WireGuard/Unbound server",
+    "managed-switch VLAN membership/PVID",
+    "OpenWrt routed policy and UDP DNAT",
+    "upstream ISP UDP forwarding"
+  ],
+  "direct_observations": {
+    "nas_final_ipv4": "10.100.20.10/24",
+    "vpn_final_ipv4": "10.100.20.20/24",
+    "servers_gateway": "10.100.20.1",
+    "vpn_switch_port": 2,
+    "nas_switch_port": 3,
+    "servers_vlan": 30,
+    "vpn_final_pvid": 30,
+    "vpn_wifi_radio": "disabled",
+    "vpn_wlan0": "DOWN, no address",
+    "vpn_default_route": "10.100.20.1 via eth0 metric 100",
+    "vpn_ipv6": "link-local only; no IPv6 default route at inspection",
+    "wireguard_tunnel_ipv4": "10.200.0.1/24",
+    "wireguard_listen_port_udp": 51820,
+    "pihole_final_upstreams": [
+      "10.100.20.20#5335"
+    ],
+    "pihole_other_settings_preserved": true,
+    "pihole_native_validation_exit": 0,
+    "pihole_activation_exit": 0,
+    "dns_path": "Trusted client -> Pi-hole 10.100.20.10:53 -> Unbound 10.100.20.20:5335",
+    "dns_forwarding_evidence": "Unique UDP/TCP client controls correlated with actual new-backend forward and completed reply entries; NOERROR/NODATA interpreted as NODATA, not an A-answer claim.",
+    "wired_public_https": "HTTPS to 1.1.1.1 returned 301 with source 10.100.20.20; route selected eth0 via 10.100.20.1",
+    "classroom_new_url_status": 200,
+    "classroom_retired_host_status": 403,
+    "omv_status": 200,
+    "pihole_admin_status": 200,
+    "downstream_forward": {
+      "source_zone": "wwan",
+      "upstream_ipv4": "10.100.10.2",
+      "protocol": "UDP",
+      "external_port": 51820,
+      "internal_ipv4": "10.100.20.20",
+      "internal_port": 51820,
+      "reflection": false
+    },
+    "preexisting_firewall_sections_preserved": 37,
+    "firewall_apply_rollback_window_seconds": 240,
+    "firewall_confirmation_elapsed_seconds": 45,
+    "fw4_standalone_checker": "Permission denied through available RPC; NOT claimed as passed; no bypass used",
+    "firewall_alternative_validation": "Authorized native nftables JSON readback of ingress, exact DNAT, forwarding acceptance, saved state, and regression traffic tests",
+    "nov10_host_side_checks": "Unbound UDP/TCP and Pi-hole control queries answered; IPv4 forwarding enabled; DNS-independent HTTPS from VPN-01 to 1.1.1.1/cdn-cgi/trace returned 200. Not a forwarded phone traffic measurement."
+  },
+  "operator_or_screenshot_evidence": {
+    "upstream_forward": "Screenshot showed OpenWrt-wired / 10.100.10.2 / UDP 51820",
+    "remote_nas_access": "Operator reported success after instruction to test from cellular with WireGuard enabled; independently instrumented handshake not captured",
+    "phone_ssh": "Operator later reported success and cancelled proposed phone-only access change; exact earlier refusal cause unconfirmed; no extra phone firewall/reservation/key changes made",
+    "vpn_client_dns_resolution": "Operator identified the retired DNS-server address in the phone WireGuard profile, updated it to the new DNS-server address, and reported that internet access then worked. Intended VPN DNS endpoint: Pi-hole 192.16810.100.20.10. No additional server restart/firewall/key change was needed."
+  },
+  "automated_tests": {
+    "distinct_cases_by_suite": {
+      "acl_preparation_suite": 55,
+      "future_listener_suite": 37
+    },
+    "distinct_case_total": 92,
+    "local_suites_rerun_for_report": "55 cases passed and 37 cases passed",
+    "target_future_listener_cases": 37,
+    "target_python": "3.13.5",
+    "target_tests_exit": 0,
+    "helper_sha256": "b2c6ba82af8130ad43b04e60b4fca159e103f45149e4f49949944502bb05340a",
+    "default_cli_was_inert": true,
+    "unbound_pid_unchanged_by_staging_tests": true,
+    "integration_boundary": "Service commands/clocks injected in unit tests; live service/network integration checked separately after operator apply"
+  },
+  "not_claimed_verified": [
+    "complete authenticated SMB file-read acceptance",
+    "independently instrumented external VPN routing, IPv6 and throughput assessment",
+    "fresh independently captured external WireGuard handshake/counters",
+    "controlled reboot/power-cycle persistence",
+    "full backup restoration",
+    "application certificate trust/authenticated classroom workflows",
+    "quantified MTTR, downtime, availability percentage, RTO or RPO"
+  ],
+  "publication_exclusions": [
+    "configuration archives",
+    "private and preshared keys",
+    "credentials and password hashes",
+    "Wi-Fi PSKs",
+    "browser sessions/tokens",
+    "public WAN IPs",
+    "device MACs and peer identities",
+    "full browsing logs",
+    "raw personal screenshots"
+  ],
+  "source_basename_examples": [
+    "nginx-binding-repair.json",
+    "classroom-origin-repair.json",
+    "target-python313-verification.json",
+    "pihole-final-upstream.json",
+    "final-dns-path-verification.json",
+    "forward-confirmation.json",
+    "switch-step3-port2-pvid30.json"
+  ],
+  "post_migration_addendum_date": "2026-11-10",
+  "address_sanitization": {
+    "all_deployment_addresses_replaced": true,
+    "address_values_are_fictional_examples": true,
+    "example_network_roles": {
+      "upstream": "10.100.10.0/24",
+      "servers": "10.100.20.0/24",
+      "trusted": "10.100.30.0/24",
+      "iot": "10.100.40.0/24",
+      "wireguard": "10.200.0.0/24"
+    },
+    "private_mapping_published": false,
+    "original_evidence_published": false,
+    "note": "Direct-observation fields preserve outcomes but use substituted addresses. Public test endpoint and standard loopback notation are unchanged."
+  }
+}
